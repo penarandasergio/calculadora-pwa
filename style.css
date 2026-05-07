@@ -1,0 +1,268 @@
+/* ============================================
+   CALCULADORA PWA — style.css
+   Diseño: oscuro, minimalista, tipografía
+   monoespaciada para los números.
+   ============================================ */
+
+/* --- Variables de diseño --- */
+:root {
+  --bg-app:      #0f0f1a;
+  --bg-calc:     #1a1a2e;
+  --bg-display:  #16213e;
+  --bg-num:      #2a2a4a;
+  --bg-func:     #2e2e50;
+  --bg-op:       #e94560;
+  --bg-equal:    #e94560;
+  --bg-op-active:#ff6b81;
+
+  --text-primary:   #f0f0f5;
+  --text-secondary: #9090b0;
+  --text-display:   #ffffff;
+  --text-op:        #ffffff;
+
+  --radius-btn:  16px;
+  --radius-calc: 28px;
+  --gap:         12px;
+
+  --font-display: 'Courier New', 'Consolas', monospace;
+  --font-ui:      system-ui, sans-serif;
+
+  --shadow-calc: 0 30px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04);
+  --shadow-btn:  0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* --- Reset y base --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: var(--font-ui);
+  background: var(--bg-app);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Textura sutil de fondo */
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(233,69,96,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(74,74,180,0.1) 0%, transparent 50%);
+}
+
+/* --- Wrapper general --- */
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+}
+
+/* --- Badge de estado online/offline --- */
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+}
+
+.status-badge .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #4ade80; /* verde = online */
+  transition: background 0.3s;
+}
+
+.status-badge.offline .dot {
+  background: #f87171; /* rojo = offline */
+}
+
+.status-badge.offline {
+  border-color: rgba(248,113,113,0.3);
+}
+
+/* --- Calculadora (contenedor principal) --- */
+.calculator {
+  background: var(--bg-calc);
+  border-radius: var(--radius-calc);
+  padding: 24px;
+  width: 320px;
+  box-shadow: var(--shadow-calc);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* --- Pantalla --- */
+.display {
+  background: var(--bg-display);
+  border-radius: 16px;
+  padding: 20px 24px 16px;
+  margin-bottom: 20px;
+  min-height: 110px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  border: 1px solid rgba(255,255,255,0.04);
+  overflow: hidden;
+}
+
+/* Expresión (la operación en curso) */
+.expression {
+  font-family: var(--font-display);
+  font-size: 14px;
+  color: var(--text-secondary);
+  min-height: 20px;
+  letter-spacing: 0.05em;
+  word-break: break-all;
+  text-align: right;
+  transition: opacity 0.2s;
+}
+
+/* Resultado / número actual */
+.result {
+  font-family: var(--font-display);
+  font-size: 52px;
+  font-weight: 400;
+  color: var(--text-display);
+  line-height: 1;
+  margin-top: 8px;
+  word-break: break-all;
+  text-align: right;
+  transition: transform 0.1s ease;
+  letter-spacing: -0.02em;
+}
+
+/* Anima el resultado al calcular */
+.result.pop {
+  transform: scale(1.04);
+}
+
+/* --- Grid de botones --- */
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gap);
+}
+
+/* --- Botones base --- */
+.btn {
+  height: 64px;
+  border: none;
+  border-radius: var(--radius-btn);
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: transform 0.08s ease, filter 0.08s ease, box-shadow 0.08s ease;
+  box-shadow: var(--shadow-btn);
+  letter-spacing: -0.01em;
+}
+
+.btn:active {
+  transform: scale(0.93);
+  filter: brightness(1.15);
+}
+
+/* Números */
+.btn-num {
+  background: var(--bg-num);
+  color: var(--text-primary);
+}
+
+.btn-num:hover {
+  background: #353560;
+}
+
+/* Funciones (AC, +/-, %) */
+.btn-func {
+  background: var(--bg-func);
+  color: #a0a0cc;
+  font-size: 18px;
+}
+
+.btn-func:hover {
+  background: #3a3a60;
+}
+
+/* Operadores (÷ × − +) */
+.btn-op {
+  background: var(--bg-op);
+  color: var(--text-op);
+}
+
+.btn-op:hover {
+  background: var(--bg-op-active);
+}
+
+.btn-op.active {
+  background: #ffffff;
+  color: var(--bg-op);
+}
+
+/* Botón "0" ocupa 2 columnas */
+.btn-zero {
+  grid-column: span 2;
+  text-align: left;
+  padding-left: 26px;
+}
+
+/* Botón "=" */
+.btn-equal {
+  background: var(--bg-equal);
+  color: var(--text-op);
+  font-size: 28px;
+}
+
+.btn-equal:hover {
+  background: var(--bg-op-active);
+}
+
+/* --- Info PWA en la parte inferior --- */
+.pwa-info {
+  font-size: 12px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pwa-info button {
+  background: rgba(233,69,96,0.2);
+  border: 1px solid rgba(233,69,96,0.4);
+  color: #e94560;
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pwa-info button:hover {
+  background: rgba(233,69,96,0.35);
+}
+
+/* --- Responsive: pantallas pequeñas --- */
+@media (max-width: 380px) {
+  .calculator {
+    width: 290px;
+    padding: 18px;
+  }
+  .btn {
+    height: 58px;
+    font-size: 20px;
+  }
+  .result {
+    font-size: 44px;
+  }
+}

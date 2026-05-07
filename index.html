@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculadora PWA</title>
+
+  <!-- ==========================================
+       PWA: Enlace al Web App Manifest
+       Esto le dice al navegador que esta web
+       puede instalarse como una app.
+  =========================================== -->
+  <link rel="manifest" href="manifest.json" />
+
+  <!-- PWA: Color de la barra del navegador en móvil -->
+  <meta name="theme-color" content="#1a1a2e" />
+
+  <!-- PWA: Comportamiento en iOS (Safari no usa manifest completamente) -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Calculadora" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="app-wrapper">
+
+    <!-- Badge que muestra si la app está offline -->
+    <div class="status-badge" id="statusBadge">
+      <span class="dot"></span>
+      <span id="statusText">Online</span>
+    </div>
+
+    <div class="calculator">
+
+      <!-- Pantalla de la calculadora -->
+      <div class="display">
+        <div class="expression" id="expression"></div>
+        <div class="result" id="result">0</div>
+      </div>
+
+      <!-- Teclado numérico y operadores -->
+      <div class="keypad">
+
+        <!-- Fila 1: Funciones -->
+        <button class="btn btn-func" data-action="clear">AC</button>
+        <button class="btn btn-func" data-action="sign">+/-</button>
+        <button class="btn btn-func" data-action="percent">%</button>
+        <button class="btn btn-op"   data-action="operator" data-value="÷">÷</button>
+
+        <!-- Fila 2 -->
+        <button class="btn btn-num" data-action="number" data-value="7">7</button>
+        <button class="btn btn-num" data-action="number" data-value="8">8</button>
+        <button class="btn btn-num" data-action="number" data-value="9">9</button>
+        <button class="btn btn-op"  data-action="operator" data-value="×">×</button>
+
+        <!-- Fila 3 -->
+        <button class="btn btn-num" data-action="number" data-value="4">4</button>
+        <button class="btn btn-num" data-action="number" data-value="5">5</button>
+        <button class="btn btn-num" data-action="number" data-value="6">6</button>
+        <button class="btn btn-op"  data-action="operator" data-value="−">−</button>
+
+        <!-- Fila 4 -->
+        <button class="btn btn-num" data-action="number" data-value="1">1</button>
+        <button class="btn btn-num" data-action="number" data-value="2">2</button>
+        <button class="btn btn-num" data-action="number" data-value="3">3</button>
+        <button class="btn btn-op"  data-action="operator" data-value="+">+</button>
+
+        <!-- Fila 5 -->
+        <button class="btn btn-num btn-zero" data-action="number" data-value="0">0</button>
+        <button class="btn btn-num" data-action="decimal">.</button>
+        <button class="btn btn-equal" data-action="equals">=</button>
+
+      </div>
+    </div>
+
+    <!-- Indicador PWA educativo -->
+    <div class="pwa-info" id="pwaInfo">
+      <span>💡 Puedes instalar esta app</span>
+      <button id="installBtn" style="display:none">Instalar</button>
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
